@@ -16,6 +16,11 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+# activeadmin dashboard with devise login authentication
+gem "activeadmin", "~> 3.5"
+gem "devise", "~> 5.0"
+gem "sassc-rails"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

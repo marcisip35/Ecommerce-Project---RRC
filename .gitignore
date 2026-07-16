@@ -1,2 +1,5 @@
 /tmp/*
 !/tmp/.keep
+
+/log/*.log
+/storage/*.sqlite3

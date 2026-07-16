@@ -1,0 +1,76 @@
+:root {
+  --black: #000000;
+  --off-white: #faf9f6;
+  --beige: #ffcf95;
+  --purple: #723ec3;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--off-white);
+  color: var(--black);
+}
+
+.site-header {
+  min-height: 80px;
+  padding: 15px 40px;
+  background: var(--black);
+
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  color: var(--off-white);
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.hero {
+  min-height: 600px;
+  padding: 100px 20px;
+  text-align: center;
+  background: var(--beige);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 48px;
+  color: var(--purple);
+}
+
+.content {
+  min-height: 200px;
+  padding: 40px;
+  background: var(--off-white);
+}
+
+.site-footer {
+  min-height: 600px;
+  padding: 20px 40px;
+  background: var(--black);
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.admin-button {
+  background: var(--purple);
+  color: var(--off-white);
+  padding: 10px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.admin-button:hover {
+  background: var(--beige);
+  color: var(--black);
+}

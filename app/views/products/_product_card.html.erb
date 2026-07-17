@@ -1,0 +1,41 @@
+<%= link_to product_path(product), class: "product-card-link" do %>
+  <article class="product-card">
+    <div class="product-image">
+      <% if product.image.attached? %>
+        <%= image_tag product.image, alt: product.name %>
+      <% else %>
+        <div class="missing-image">
+          <span>Image coming soon</span>
+        </div>
+      <% end %>
+
+      <% if product.on_sale %>
+        <span class="sale-badge">Sale</span>
+      <% end %>
+    </div>
+
+    <div class="product-card-info">
+      <p class="product-category">
+        <%= product.categories.first&.name || "Outdoor" %>
+      </p>
+
+      <h3><%= product.name %></h3>
+
+      <div class="product-price">
+        <% if product.on_sale && product.sale_price.present? %>
+          <span class="sale-price">
+            <%= number_to_currency(product.sale_price) %>
+          </span>
+
+          <span class="regular-price old-price">
+            <%= number_to_currency(product.price) %>
+          </span>
+        <% else %>
+          <span class="regular-price">
+            <%= number_to_currency(product.price) %>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </article>
+<% end %>

@@ -10,4 +10,25 @@ class Product < ApplicationRecord
   validates :stock_quantity, presence: true,
                              numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :sale_price, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "created_at",
+      "description",
+      "id",
+      "name",
+      "on_sale",
+      "price",
+      "sale_price",
+      "stock_quantity",
+      "updated_at"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "categories",
+      "category_products"
+    ]
+  end
 end

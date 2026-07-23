@@ -1,4 +1,4 @@
-<header class="site-header">
+<header class="site-header <%= "home-header" if controller_name == "home" && action_name == "index" %>">
   <div class="header-top">
     <span>Free shipping in Canada on orders over $200</span>
     <span>Winnipeg, Manitoba</span>
@@ -9,17 +9,31 @@
       <%= link_to "SUPEREX", root_path, class: "brand" %>
     </div>
 
-  <nav class="header-nav">
-    <%= link_to "Shop All",
-              root_path(anchor: "products"),
-              class: "nav-link" %>
+    <nav class="header-nav">
+      <%= link_to "Shop All",
+                  root_path(anchor: "products"),
+                  class: "nav-link" %>
 
-  <% Category.order(:id).each do |category| %>
-    <%= link_to category.name,
-                root_path(category_id: category.id, anchor: "products"),
-                class: "nav-link" %>
-  <% end %>
-  </nav>
+      <%= link_to "Shell Jackets",
+                  shell_jackets_path,
+                  class: "nav-link" %>
+
+      <%= link_to "Insulated Jackets",
+                  insulated_jackets_path,
+                  class: "nav-link" %>
+
+      <%= link_to "Lifestyle",
+                  lifestyle_path,
+                  class: "nav-link" %>
+
+      <%= link_to "About",
+                  about_path,
+                  class: "nav-link" %>
+
+      <%= link_to "Contact",
+                  contact_path,
+                  class: "nav-link" %>
+    </nav>
 
     <div class="header-tools">
       <div class="header-search">

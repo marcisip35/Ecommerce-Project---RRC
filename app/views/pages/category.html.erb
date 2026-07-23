@@ -1,0 +1,14 @@
+<% content_for :title, @category.name %>
+
+<section class="product-section">
+  <div class="section-heading">
+    <p>Explore Superex</p>
+    <h1><%= @category.name %></h1>
+  </div>
+
+  <div class="product-grid">
+    <% @products.each do |product| %>
+      <%= render "products/product_card", product: product %>
+    <% end %>
+  </div>
+</section>

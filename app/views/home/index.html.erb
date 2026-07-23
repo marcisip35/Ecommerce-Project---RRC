@@ -1,8 +1,12 @@
-<section class="hero" style="background-image: url('<%= asset_path("hero-image.jpg") %>');">
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="/hero-video.mp4" type="video/mp4">
+  </video>
+
   <div class="hero-content">
-    <p>Winnipeg Based</p>
-    <h1>The Outdoors Is Waiting for You</h1>
-    <%= link_to "Shop All", "#products", class: "hero-button" %>
+    <p>Winnipeg Founded Based Owned</p>
+    <h1>Get Ready To Explore</h1>
+    <%= link_to "Shop All", root_path(anchor: "products"), class: "hero-button" %>
   </div>
 </section>
 

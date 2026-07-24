@@ -6,10 +6,18 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates :description, presence: true
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :price, presence: true,
+                    numericality: { greater_than_or_equal_to: 0 }
+
   validates :stock_quantity, presence: true,
-                             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :sale_price, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
+                             numericality: {
+                               only_integer: true,
+                               greater_than_or_equal_to: 0
+                             }
+
+  validates :sale_price,
+            numericality: { greater_than_or_equal_to: 0 },
+            allow_blank: true
 
   def self.ransackable_attributes(auth_object = nil)
     [
@@ -30,5 +38,25 @@ class Product < ApplicationRecord
       "categories",
       "category_products"
     ]
+  end
+
+  def self.keyword_search(keywords)
+    if keywords.nil?
+      return Product.all
+    end
+
+    keywords = keywords.strip
+
+    if keywords == ""
+      return Product.all
+    end
+
+    search_words = "%" + keywords + "%"
+
+    Product.where(
+      "products.name LIKE ? OR products.description LIKE ?",
+      search_words,
+      search_words
+    )
   end
 end

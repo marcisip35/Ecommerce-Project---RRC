@@ -6,7 +6,10 @@
   <div class="hero-content">
     <p>Winnipeg Founded Based Owned</p>
     <h1>Get Ready To Explore</h1>
-    <%= link_to "Shop All", root_path(anchor: "products"), class: "hero-button" %>
+
+    <%= link_to "Shop All",
+                root_path(anchor: "products"),
+                class: "hero-button" %>
   </div>
 </section>
 
@@ -17,33 +20,109 @@
   </div>
 
   <div class="product-toolbar">
-    <details class="category-dropdown">
-      <summary>
-        <% if @selected_category %>
-          <%= @selected_category.name %>
-        <% else %>
-          Shop by Category
-        <% end %>
-      </summary>
-
-      <div class="category-dropdown-menu">
-        <%= link_to "All Products", root_path(anchor: "products") %>
-
-        <% @categories.each do |category| %>
-          <%= link_to category.name,
-                      root_path(category_id: category.id, anchor: "products") %>
-        <% end %>
-      </div>
-    </details>
-
     <p class="product-count">
-      <%= pluralize(@products.count, "product") %>
+      <% if @search_words.present? || @selected_category || params[:filter].present? %>
+        <%= pluralize(@product_count, "result") %>
+      <% else %>
+        <%= pluralize(@product_count, "item") %>
+      <% end %>
     </p>
+
+    <div class="product-toolbar-controls">
+      <div class="product-filters">
+        <%= link_to "All",
+                    root_path(
+                      search_keywords: @search_words,
+                      category_id: params[:category_id],
+                      anchor: "products"
+                    ),
+                    class: "filter-link" %>
+
+        <%= link_to "On Sale",
+                    root_path(
+                      search_keywords: @search_words,
+                      category_id: params[:category_id],
+                      filter: "sale",
+                      anchor: "products"
+                    ),
+                    class: "filter-link" %>
+
+        <%= link_to "New",
+                    root_path(
+                      search_keywords: @search_words,
+                      category_id: params[:category_id],
+                      filter: "new",
+                      anchor: "products"
+                    ),
+                    class: "filter-link" %>
+      </div>
+
+      <%= form_tag root_path(anchor: "products"),
+                   method: :get,
+                   class: "toolbar-search-form",
+                   data: { turbo: false } do %>
+        <div class="toolbar-search-input">
+          <%= text_field_tag :search_keywords,
+                             @search_words,
+                             id: "toolbar_search_keywords",
+                             placeholder: "Search products",
+                             aria: { label: "Search products" } %>
+        </div>
+
+        <div class="toolbar-category-select">
+          <select name="category_id"
+                  id="category_id"
+                  aria-label="Product category">
+            <option value="">All Categories</option>
+
+            <% @categories.each do |category| %>
+              <% if @selected_category && @selected_category.id == category.id %>
+                <option value="<%= category.id %>" selected>
+                  <%= category.name %>
+                </option>
+              <% else %>
+                <option value="<%= category.id %>">
+                  <%= category.name %>
+                </option>
+              <% end %>
+            <% end %>
+          </select>
+        </div>
+
+        <% if params[:filter].present? %>
+          <%= hidden_field_tag :filter, params[:filter] %>
+        <% end %>
+
+        <%= submit_tag "Search",
+                       class: "toolbar-search-button" %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="product-grid">
-    <% @products.each do |product| %>
-      <%= render "products/product_card", product: product %>
-    <% end %>
-  </div>
+  <% if @products.empty? %>
+    <div class="no-products-found">
+      <p>No products were found.</p>
+
+      <%= link_to "View All Products",
+                  root_path(anchor: "products"),
+                  class: "clear-search-link" %>
+    </div>
+  <% else %>
+    <div class="product-grid">
+      <% @products.each do |product| %>
+        <%= render "products/product_card",
+                   product: product %>
+      <% end %>
+    </div>
+
+    <div class="pagination-wrapper">
+      <%= paginate @products,
+                   params: {
+                     search_keywords: @search_words,
+                     category_id: params[:category_id],
+                     filter: params[:filter],
+                     anchor: "products"
+                   } %>
+    </div>
+  <% end %>
 </section>

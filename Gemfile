@@ -21,6 +21,9 @@ gem "jbuilder"
 gem "activeadmin", "~> 3.5"
 gem "devise", "~> 5.0"
 gem "sassc-rails"
+
+# gem kaminari for search
+gem "kaminari"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

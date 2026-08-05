@@ -1,0 +1,53 @@
+<section class="customer-auth-page">
+  <div class="customer-auth-card">
+    <div class="customer-auth-tabs">
+      <%= link_to "Login",
+                  new_customer_session_path,
+                  class: "customer-auth-tab active" %>
+
+      <%= link_to "Sign Up",
+                  new_customer_registration_path,
+                  class: "customer-auth-tab" %>
+    </div>
+
+    <% if flash[:alert].present? %>
+      <div class="customer-auth-errors">
+        <p><%= flash[:alert] %></p>
+      </div>
+    <% end %>
+
+    <%= form_for(
+          resource,
+          as: resource_name,
+          url: session_path(resource_name),
+          html: { class: "customer-auth-form" }
+        ) do |f| %>
+
+      <div class="customer-auth-field">
+        <%= f.label :username %>
+
+        <%= f.text_field :username,
+                         autofocus: true,
+                         autocomplete: "username",
+                         placeholder: "Enter your username" %>
+      </div>
+
+      <div class="customer-auth-field">
+        <div class="customer-auth-label-row">
+          <%= f.label :password %>
+
+          <%= link_to "Forgot password?",
+                      new_customer_password_path,
+                      class: "customer-forgot-link" %>
+        </div>
+
+        <%= f.password_field :password,
+                             autocomplete: "current-password",
+                             placeholder: "Enter your password" %>
+      </div>
+
+      <%= f.submit "Log In",
+                   class: "customer-auth-button" %>
+    <% end %>
+  </div>
+</section>

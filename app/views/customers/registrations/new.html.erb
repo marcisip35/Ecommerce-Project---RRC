@@ -1,0 +1,75 @@
+<section class="customer-auth-page">
+  <div class="customer-auth-card">
+    <div class="customer-auth-tabs">
+      <%= link_to "Login",
+                  new_customer_session_path,
+                  class: "customer-auth-tab" %>
+
+      <%= link_to "Sign Up",
+                  new_customer_registration_path,
+                  class: "customer-auth-tab active" %>
+    </div>
+
+    <% if resource.errors.any? %>
+      <div class="customer-auth-errors">
+        <p>Please fix the following:</p>
+
+        <ul>
+          <% resource.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_for(
+          resource,
+          as: resource_name,
+          url: registration_path(resource_name),
+          html: { class: "customer-auth-form" }
+        ) do |f| %>
+
+      <div class="customer-auth-field">
+        <%= f.label :username %>
+
+        <%= f.text_field :username,
+                         autofocus: true,
+                         autocomplete: "username",
+                         placeholder: "Choose a username" %>
+      </div>
+
+      <div class="customer-auth-field">
+        <%= f.label :email %>
+
+        <%= f.email_field :email,
+                          autocomplete: "email",
+                          placeholder: "Enter your email address" %>
+      </div>
+
+      <div class="customer-auth-field">
+        <%= f.label :password %>
+
+        <% if @minimum_password_length %>
+          <span class="customer-password-note">
+            <%= @minimum_password_length %> characters minimum
+          </span>
+        <% end %>
+
+        <%= f.password_field :password,
+                             autocomplete: "new-password",
+                             placeholder: "Create your password" %>
+      </div>
+
+      <div class="customer-auth-field">
+        <%= f.label :password_confirmation %>
+
+        <%= f.password_field :password_confirmation,
+                             autocomplete: "new-password",
+                             placeholder: "Enter your password again" %>
+      </div>
+
+      <%= f.submit "Create Account",
+                   class: "customer-auth-button" %>
+    <% end %>
+  </div>
+</section>

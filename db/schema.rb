@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_07_23_201547) do
+ActiveRecord::Schema[7.2].define(version: 2026_08_05_210215) do
   create_table "about_pages", force: :cascade do |t|
     t.string "title"
     t.string "content"
@@ -98,6 +98,20 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_23_201547) do
     t.string "map_embed_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "username", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
+    t.index ["username"], name: "index_customers_on_username", unique: true
   end
 
   create_table "products", force: :cascade do |t|

@@ -958,6 +958,8 @@ body {
   color: var(--off-white);
 }
 
+
+
 @media (max-width: 1000px) {
   .header-top {
     padding: 8px 20px;
@@ -1178,8 +1180,6 @@ body {
     flex-direction: column;
   }
 }
-
-/* Product toolbar redesign */
 
 .product-toolbar {
   width: 100%;
@@ -1405,5 +1405,252 @@ body {
 
   .pagination {
     min-width: 0;
+  }
+}
+
+/* Customer signup and login */
+
+.customer-auth-page {
+  min-height: 700px;
+  padding: 80px 20px;
+  background: var(--purple);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customer-auth-card,
+.customer-auth-box {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border: 1px solid var(--black);
+  border-radius: 12px;
+  background: var(--off-white);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.customer-auth-tabs {
+  margin-bottom: 30px;
+  padding: 4px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  background: white;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.customer-auth-tab {
+  min-height: 38px;
+  padding: 10px;
+  border-radius: 6px;
+  background: white;
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customer-auth-tab:hover {
+  background: var(--light-grey);
+  text-decoration: none;
+}
+
+.customer-auth-tab.active {
+  background: var(--black);
+  color: var(--off-white);
+}
+
+.customer-auth-heading {
+  margin-bottom: 26px;
+  text-align: center;
+}
+
+.customer-auth-heading h1 {
+  margin: 0 0 10px;
+  color: var(--black);
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.customer-auth-heading p,
+.customer-auth-heading span {
+  margin: 0;
+  color: #666666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.customer-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.customer-auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.customer-auth-field label {
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.customer-auth-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.customer-forgot-link {
+  color: var(--black);
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.customer-forgot-link:hover {
+  text-decoration: underline;
+}
+
+.customer-auth-field input {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 13px;
+  border: 1px solid #dddddd;
+  border-radius: 7px;
+  outline: 0;
+  background: white;
+  color: var(--black);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.customer-auth-field input:focus {
+  border-color: var(--black);
+  box-shadow: 0 0 0 1px var(--black);
+}
+
+.customer-password-note {
+  color: #777777;
+  font-size: 11px;
+}
+
+.customer-auth-button {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+  border: 1px solid var(--black);
+  border-radius: 7px;
+  background: var(--black);
+  color: var(--off-white);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.customer-auth-button:hover {
+  background: var(--dark-grey);
+}
+
+.customer-auth-errors {
+  margin-bottom: 22px;
+  padding: 13px 15px;
+  border: 1px solid #a40000;
+  border-radius: 7px;
+  background: #fff0f0;
+  color: #a40000;
+  font-size: 13px;
+}
+
+.customer-auth-errors p {
+  margin: 0 0 7px;
+  font-weight: 600;
+}
+
+.customer-auth-errors ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.customer-auth-back,
+.customer-password-link {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.customer-auth-back a,
+.customer-password-link a {
+  color: var(--black);
+  font-size: 12px;
+}
+
+.customer-auth-back a:hover,
+.customer-password-link a:hover {
+  text-decoration: underline;
+}
+
+/* Customer information in the header */
+
+.customer-header-username {
+  max-width: 110px;
+  overflow: hidden;
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-tools .button_to {
+  margin: 0;
+}
+
+.customer-header-logout {
+  padding: 7px 10px;
+  border: 1px solid var(--black);
+  background: transparent;
+  color: var(--black);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.customer-header-logout:hover {
+  background: var(--black);
+  color: var(--off-white);
+}
+
+@media (max-width: 600px) {
+  .customer-auth-page {
+    min-height: 600px;
+    padding: 50px 15px;
+  }
+
+  .customer-auth-card,
+  .customer-auth-box {
+    padding: 25px 20px;
+  }
+
+  .customer-auth-heading h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .customer-header-username {
+    max-width: 160px;
   }
 }

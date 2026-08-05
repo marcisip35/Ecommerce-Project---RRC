@@ -1,0 +1,56 @@
+<section class="customer-auth-page">
+  <div class="customer-auth-card">
+    <div class="customer-auth-tabs">
+      <%= link_to "Login",
+                  new_customer_session_path,
+                  class: "customer-auth-tab active" %>
+
+      <%= link_to "Sign Up",
+                  new_customer_registration_path,
+                  class: "customer-auth-tab" %>
+    </div>
+
+    <div class="customer-auth-heading">
+      <h1>Reset Password</h1>
+      <p>Enter your email address to receive reset instructions.</p>
+    </div>
+
+    <% if resource.errors.any? %>
+      <div class="customer-auth-errors">
+        <ul>
+          <% resource.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_for(
+          resource,
+          as: resource_name,
+          url: password_path(resource_name),
+          html: {
+            method: :post,
+            class: "customer-auth-form"
+          }
+        ) do |f| %>
+
+      <div class="customer-auth-field">
+        <%= f.label :email %>
+
+        <%= f.email_field :email,
+                          autofocus: true,
+                          autocomplete: "email",
+                          placeholder: "Enter your email address" %>
+      </div>
+
+      <%= f.submit "Send Reset Instructions",
+                   class: "customer-auth-button" %>
+    <% end %>
+
+    <div class="customer-auth-back">
+      <%= link_to "Back to Login",
+                  new_customer_session_path %>
+    </div>
+  </div>
+</section>

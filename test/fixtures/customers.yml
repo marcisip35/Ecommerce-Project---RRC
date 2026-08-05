@@ -1,0 +1,9 @@
+one:
+  username: customerone
+  email: customerone@example.com
+  encrypted_password: customeronepassword
+
+two:
+  username: customertwo
+  email: customertwo@example.com
+  encrypted_password: customertwopassword

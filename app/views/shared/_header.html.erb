@@ -37,9 +37,9 @@
 
     <div class="header-tools">
       <%= form_tag root_path(anchor: "products"),
-             method: :get,
-             class: "header-search",
-             data: { turbo: false } do %>
+                   method: :get,
+                   class: "header-search",
+                   data: { turbo: false } do %>
         <svg class="tool-icon"
              xmlns="http://www.w3.org/2000/svg"
              xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -91,7 +91,15 @@
         <% end %>
       <% end %>
 
-      <a href="#" class="header-icon" aria-label="Profile">
+      <% if customer_signed_in? %>
+        <% profile_path = edit_customer_registration_path %>
+      <% else %>
+        <% profile_path = new_customer_session_path %>
+      <% end %>
+
+      <%= link_to profile_path,
+                  class: "header-icon",
+                  aria: { label: "Customer account" } do %>
         <svg class="tool-icon"
              xmlns="http://www.w3.org/2000/svg"
              xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -127,7 +135,18 @@
             </g>
           </g>
         </svg>
-      </a>
+      <% end %>
+
+      <% if customer_signed_in? %>
+        <span class="customer-header-username">
+          <%= current_customer.username %>
+        </span>
+
+        <%= button_to "Logout",
+                      destroy_customer_session_path,
+                      method: :delete,
+                      class: "customer-header-logout" %>
+      <% end %>
 
       <a href="#" class="header-icon" aria-label="Shopping cart">
         <svg class="tool-icon"

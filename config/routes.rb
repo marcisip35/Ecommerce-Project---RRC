@@ -11,6 +11,13 @@ Rails.application.routes.draw do
   get "lifestyle_jackets", to: "pages#lifestyle", as: :lifestyle
   get "cart", to: "carts#show", as: :cart
   post "cart/add/:product_id", to: "carts#add", as: :add_to_cart
+  patch "cart/update/:product_id",
+      to: "carts#update",
+      as: :update_cart_item
+
+  delete "cart/remove/:product_id",
+       to: "carts#remove",
+       as: :remove_from_cart
 
   root "home#index"
 end

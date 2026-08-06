@@ -1,0 +1,14 @@
+class AddAddressToCustomers < ActiveRecord::Migration[7.2]
+  def change
+    add_column :customers, :first_name, :string
+    add_column :customers, :last_name, :string
+    add_column :customers, :street_address, :string
+    add_column :customers, :city, :string
+    add_column :customers, :postal_code, :string
+
+    add_reference :customers,
+                  :province,
+                  null: true,
+                  foreign_key: true
+  end
+end

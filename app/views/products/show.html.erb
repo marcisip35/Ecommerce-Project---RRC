@@ -28,7 +28,9 @@
           <%= number_to_currency(@product.price) %>
         </span>
       <% else %>
-        <span><%= number_to_currency(@product.price) %></span>
+        <span>
+          <%= number_to_currency(@product.price) %>
+        </span>
       <% end %>
     </div>
 
@@ -46,9 +48,16 @@
       </p>
     </div>
 
-    <button type="button" class="add-cart-button">
-      Add to Cart
-    </button>
+    <% if @product.stock_quantity > 0 %>
+      <%= button_to "Add to Cart",
+                    add_to_cart_path(product_id: @product.id),
+                    method: :post,
+                    class: "add-cart-button" %>
+    <% else %>
+      <button class="add-cart-button" disabled>
+        Out of Stock
+      </button>
+    <% end %>
 
     <%= link_to "Back to Products",
                 root_path(anchor: "products"),

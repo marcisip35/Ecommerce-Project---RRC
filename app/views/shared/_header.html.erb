@@ -148,7 +148,17 @@
                       class: "customer-header-logout" %>
       <% end %>
 
-      <a href="#" class="header-icon" aria-label="Shopping cart">
+      <% cart_count = 0 %>
+
+      <% if session[:cart].present? %>
+        <% session[:cart].each_value do |quantity| %>
+          <% cart_count += quantity.to_i %>
+        <% end %>
+      <% end %>
+
+      <%= link_to cart_path,
+                  class: "header-icon cart-header-link",
+                  aria: { label: "Shopping cart" } do %>
         <svg class="tool-icon"
              xmlns="http://www.w3.org/2000/svg"
              xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -184,7 +194,13 @@
             </g>
           </g>
         </svg>
-      </a>
+
+        <% if cart_count > 0 %>
+          <span class="cart-header-count">
+            <%= cart_count %>
+          </span>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </header>

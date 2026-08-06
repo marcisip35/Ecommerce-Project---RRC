@@ -17,6 +17,8 @@
       <% @cart_items.each do |cart_item| %>
         <% product = cart_item[:product] %>
         <% quantity = cart_item[:quantity] %>
+        <% unit_price = cart_item[:unit_price] %>
+        <% line_total = cart_item[:line_total] %>
 
         <article class="cart-item">
           <div class="cart-item-image-wrap">
@@ -44,25 +46,71 @@
             <p class="cart-item-category">
               <%= product.categories.map(&:name).join(", ") %>
             </p>
+
+            <div class="cart-item-controls">
+              <span class="cart-quantity-label">
+                Quantity
+              </span>
+
+              <%= form_with url: update_cart_item_path(product_id: product.id),
+                            method: :patch,
+                            local: true,
+                            class: "cart-quantity-form" do %>
+                <%= button_tag "-",
+                               type: "submit",
+                               name: "quantity",
+                               value: quantity - 1,
+                               disabled: quantity <= 1,
+                               class: "cart-quantity-button cart-minus-button" %>
+
+                <span class="cart-quantity-number">
+                  <%= quantity %>
+                </span>
+
+                <%= button_tag "+",
+                               type: "submit",
+                               name: "quantity",
+                               value: quantity + 1,
+                               disabled: quantity >= product.stock_quantity,
+                               class: "cart-quantity-button cart-plus-button" %>
+              <% end %>
+
+              <%= button_to "Remove",
+                            remove_from_cart_path(product_id: product.id),
+                            method: :delete,
+                            class: "cart-remove-link" %>
+            </div>
+
+            <p class="cart-stock-message">
+              <%= product.stock_quantity %> available
+            </p>
           </div>
 
           <div class="cart-item-price">
-            <% if product.on_sale && product.sale_price.present? %>
-              <span class="cart-sale-price">
-                <%= number_to_currency(product.sale_price) %>
-              </span>
+            <span class="cart-unit-price">
+              <%= number_to_currency(unit_price) %> each
+            </span>
 
-              <span class="cart-old-price">
-                <%= number_to_currency(product.price) %>
-              </span>
-            <% else %>
-              <span>
-                <%= number_to_currency(product.price) %>
-              </span>
-            <% end %>
+            <span class="cart-line-total">
+              <%= number_to_currency(line_total) %> total
+            </span>
           </div>
         </article>
       <% end %>
+    </div>
+
+    <div class="cart-summary">
+      <div class="cart-summary-text">
+        <p>Subtotal</p>
+
+        <span>
+          Taxes and shipping will be calculated during checkout.
+        </span>
+      </div>
+
+      <strong>
+        <%= number_to_currency(@subtotal) %>
+      </strong>
     </div>
 
     <div class="cart-actions">

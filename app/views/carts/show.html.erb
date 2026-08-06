@@ -1,0 +1,86 @@
+<% content_for :title, "Shopping Cart" %>
+
+<section class="cart-page">
+  <div class="cart-heading">
+    <p>Ready to check out?</p>
+    <h1>Shopping Cart</h1>
+  </div>
+
+  <% if notice.present? %>
+    <div class="cart-notice">
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <% if @cart_items.any? %>
+    <div class="cart-items">
+      <% @cart_items.each do |cart_item| %>
+        <% product = cart_item[:product] %>
+        <% quantity = cart_item[:quantity] %>
+
+        <article class="cart-item">
+          <div class="cart-item-image-wrap">
+            <div class="cart-item-image">
+              <% if product.image.attached? %>
+                <%= image_tag product.image, alt: product.name %>
+              <% else %>
+                <div class="cart-missing-image">
+                  <span>Image coming soon</span>
+                </div>
+              <% end %>
+            </div>
+
+            <span class="cart-item-quantity-badge">
+              <%= quantity %>
+            </span>
+          </div>
+
+          <div class="cart-item-information">
+            <h2>
+              <%= link_to product.name,
+                          product_path(product) %>
+            </h2>
+
+            <p class="cart-item-category">
+              <%= product.categories.map(&:name).join(", ") %>
+            </p>
+          </div>
+
+          <div class="cart-item-price">
+            <% if product.on_sale && product.sale_price.present? %>
+              <span class="cart-sale-price">
+                <%= number_to_currency(product.sale_price) %>
+              </span>
+
+              <span class="cart-old-price">
+                <%= number_to_currency(product.price) %>
+              </span>
+            <% else %>
+              <span>
+                <%= number_to_currency(product.price) %>
+              </span>
+            <% end %>
+          </div>
+        </article>
+      <% end %>
+    </div>
+
+    <div class="cart-actions">
+      <%= link_to "Continue Shopping",
+                  root_path(anchor: "products"),
+                  class: "cart-continue-button" %>
+    </div>
+  <% else %>
+    <div class="empty-cart">
+      <h2>Your cart is empty</h2>
+
+      <p>
+        Browse the store and add a product to begin your order.
+      </p>
+
+      <%= link_to "Shop Products",
+                  root_path(anchor: "products"),
+                  class: "cart-shop-button" %>
+    </div>
+  <% end %>
+</section>

@@ -1654,3 +1654,133 @@ body {
     max-width: 160px;
   }
 }
+
+.customer-account-page {
+  min-height: 800px;
+  padding: 80px 20px;
+  background: var(--purple);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customer-account-card {
+  width: 100%;
+  max-width: 760px;
+  padding: 42px;
+  border: 1px solid var(--black);
+  border-radius: 12px;
+  background: var(--off-white);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.customer-account-heading {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.customer-account-heading p {
+  margin: 0 0 8px;
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.customer-account-heading h1 {
+  margin: 0 0 10px;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.customer-account-heading span {
+  color: #666666;
+  font-size: 14px;
+}
+
+.customer-account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.customer-account-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.customer-account-section h2 {
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cccccc;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.customer-account-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.customer-account-section select {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 13px;
+  border: 1px solid #dddddd;
+  border-radius: 7px;
+  outline: 0;
+  background: white;
+  color: var(--black);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.customer-account-section select:focus {
+  border-color: var(--black);
+  box-shadow: 0 0 0 1px var(--black);
+}
+
+.customer-account-note {
+  margin: 0;
+  color: #666666;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.customer-account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.customer-account-back {
+  color: var(--black);
+  font-size: 13px;
+  text-align: center;
+}
+
+.customer-account-back:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .customer-account-page {
+    padding: 50px 15px;
+  }
+
+  .customer-account-card {
+    padding: 28px 20px;
+  }
+
+  .customer-account-heading h1 {
+    font-size: 27px;
+  }
+
+  .customer-account-grid {
+    grid-template-columns: 1fr;
+  }
+}

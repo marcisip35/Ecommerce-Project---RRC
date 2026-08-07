@@ -5,5 +5,7 @@ class Customer < ApplicationRecord
 
   belongs_to :province, optional: true
 
+  has_many :orders
+
   validates :username, presence: true, uniqueness: true
 end

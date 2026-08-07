@@ -1,0 +1,210 @@
+<% content_for :title, "Order Confirmation" %>
+
+<section class="order-confirmation-page">
+  <div class="order-confirmation-container">
+    <div class="order-confirmation-heading">
+      <p>Order received</p>
+
+      <h1>Thank you for your order</h1>
+
+      <span>
+        Order #<%= @order.id %>
+      </span>
+    </div>
+
+    <div class="order-confirmation-layout">
+      <div class="order-confirmation-main">
+        <section class="order-confirmation-section">
+          <div class="order-confirmation-section-heading">
+            <h2>Shipping Address</h2>
+          </div>
+
+          <div class="order-address">
+            <strong>
+              <%= @order.first_name %>
+              <%= @order.last_name %>
+            </strong>
+
+            <% if @order.street_address.present? %>
+              <span><%= @order.street_address %></span>
+            <% end %>
+
+            <% if @order.city.present? ||
+                  @order.postal_code.present? %>
+              <span>
+                <% if @order.city.present? %>
+                  <%= @order.city %>,
+                <% end %>
+
+                <%= @order.province.abbreviation %>
+
+                <% if @order.postal_code.present? %>
+                  <%= @order.postal_code %>
+                <% end %>
+              </span>
+            <% else %>
+              <span><%= @order.province.name %></span>
+            <% end %>
+
+            <span>Canada</span>
+          </div>
+        </section>
+
+        <section class="order-confirmation-section">
+          <div class="order-confirmation-section-heading">
+            <h2>Items Ordered</h2>
+
+            <span>
+              <%= pluralize(
+                    @order.order_items.sum(:quantity),
+                    "item"
+                  ) %>
+            </span>
+          </div>
+
+          <div class="order-confirmation-items">
+            <% @order.order_items.each do |order_item| %>
+              <% product = order_item.product %>
+
+              <article class="order-confirmation-item">
+                <div class="order-confirmation-image-wrap">
+                  <div class="order-confirmation-image">
+                    <% if product.image.attached? %>
+                      <%= image_tag product.image,
+                                    alt: product.name %>
+                    <% else %>
+                      <div class="order-confirmation-missing-image">
+                        <span>Image coming soon</span>
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <span class="order-confirmation-quantity">
+                    <%= order_item.quantity %>
+                  </span>
+                </div>
+
+                <div class="order-confirmation-product">
+                  <h3><%= product.name %></h3>
+
+                  <p>
+                    <%= product.categories.map(&:name).join(", ") %>
+                  </p>
+
+                  <span>
+                    <%= number_to_currency(
+                          order_item.unit_price
+                        ) %>
+                    each
+                  </span>
+                </div>
+
+                <strong>
+                  <%= number_to_currency(order_item.line_total) %>
+                </strong>
+              </article>
+            <% end %>
+          </div>
+        </section>
+      </div>
+
+      <aside class="order-confirmation-invoice">
+        <div class="order-confirmation-invoice-heading">
+          <p>Invoice</p>
+          <h2>Order Summary</h2>
+        </div>
+
+        <div class="order-confirmation-details">
+          <div>
+            <span>Order number</span>
+            <strong>#<%= @order.id %></strong>
+          </div>
+
+          <div>
+            <span>Order date</span>
+
+            <strong>
+              <%= @order.created_at.strftime("%B %d, %Y") %>
+            </strong>
+          </div>
+
+          <div>
+            <span>Status</span>
+
+            <strong class="order-status">
+              <%= @order.status.capitalize %>
+            </strong>
+          </div>
+        </div>
+
+        <div class="order-confirmation-totals">
+          <div>
+            <span>Subtotal</span>
+            <strong><%= number_to_currency(@order.subtotal) %></strong>
+          </div>
+
+          <% if @order.gst_amount > 0 %>
+            <div>
+              <span>GST (<%= @order.gst_rate %>%)</span>
+
+              <strong>
+                <%= number_to_currency(@order.gst_amount) %>
+              </strong>
+            </div>
+          <% end %>
+
+          <% if @order.pst_amount > 0 %>
+            <div>
+              <span>
+                <% if @order.province.abbreviation == "QC" %>
+                  QST
+                <% elsif @order.province.abbreviation == "MB" %>
+                  RST
+                <% else %>
+                  PST
+                <% end %>
+
+                (<%= @order.pst_rate %>%)
+              </span>
+
+              <strong>
+                <%= number_to_currency(@order.pst_amount) %>
+              </strong>
+            </div>
+          <% end %>
+
+          <% if @order.hst_amount > 0 %>
+            <div>
+              <span>HST (<%= @order.hst_rate %>%)</span>
+
+              <strong>
+                <%= number_to_currency(@order.hst_amount) %>
+              </strong>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="order-confirmation-total">
+          <div>
+            <span>Total</span>
+            <small>CAD</small>
+          </div>
+
+          <strong>
+            <%= number_to_currency(@order.grand_total) %>
+          </strong>
+        </div>
+
+        <p class="order-confirmation-note">
+          Pay for your order below, your order will be held for
+          12 hours and will be released if left unpaid.
+        </p>
+
+        <button type="button"
+                class="order-confirmation-button">
+          Pay for Order
+        </button>
+      </aside>
+    </div>
+  </div>
+</section>

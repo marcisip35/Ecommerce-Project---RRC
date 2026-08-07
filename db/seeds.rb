@@ -13,19 +13,97 @@ insulated_jackets = Category.find_or_create_by!(name: "Insulated Jackets")
 lifestyle = Category.find_or_create_by!(name: "Lifestyle")
 
 province_list = [
-  { name: "Alberta", abbreviation: "AB" },
-  { name: "British Columbia", abbreviation: "BC" },
-  { name: "Manitoba", abbreviation: "MB" },
-  { name: "New Brunswick", abbreviation: "NB" },
-  { name: "Newfoundland and Labrador", abbreviation: "NL" },
-  { name: "Northwest Territories", abbreviation: "NT" },
-  { name: "Nova Scotia", abbreviation: "NS" },
-  { name: "Nunavut", abbreviation: "NU" },
-  { name: "Ontario", abbreviation: "ON" },
-  { name: "Prince Edward Island", abbreviation: "PE" },
-  { name: "Quebec", abbreviation: "QC" },
-  { name: "Saskatchewan", abbreviation: "SK" },
-  { name: "Yukon", abbreviation: "YT" }
+  {
+    name: "Alberta",
+    abbreviation: "AB",
+    gst_rate: 5.000,
+    pst_rate: 0.000,
+    hst_rate: 0.000
+  },
+  {
+    name: "British Columbia",
+    abbreviation: "BC",
+    gst_rate: 5.000,
+    pst_rate: 7.000,
+    hst_rate: 0.000
+  },
+  {
+    name: "Manitoba",
+    abbreviation: "MB",
+    gst_rate: 5.000,
+    pst_rate: 7.000,
+    hst_rate: 0.000
+  },
+  {
+    name: "New Brunswick",
+    abbreviation: "NB",
+    gst_rate: 0.000,
+    pst_rate: 0.000,
+    hst_rate: 15.000
+  },
+  {
+    name: "Newfoundland and Labrador",
+    abbreviation: "NL",
+    gst_rate: 0.000,
+    pst_rate: 0.000,
+    hst_rate: 15.000
+  },
+  {
+    name: "Northwest Territories",
+    abbreviation: "NT",
+    gst_rate: 5.000,
+    pst_rate: 0.000,
+    hst_rate: 0.000
+  },
+  {
+    name: "Nova Scotia",
+    abbreviation: "NS",
+    gst_rate: 0.000,
+    pst_rate: 0.000,
+    hst_rate: 14.000
+  },
+  {
+    name: "Nunavut",
+    abbreviation: "NU",
+    gst_rate: 5.000,
+    pst_rate: 0.000,
+    hst_rate: 0.000
+  },
+  {
+    name: "Ontario",
+    abbreviation: "ON",
+    gst_rate: 0.000,
+    pst_rate: 0.000,
+    hst_rate: 13.000
+  },
+  {
+    name: "Prince Edward Island",
+    abbreviation: "PE",
+    gst_rate: 0.000,
+    pst_rate: 0.000,
+    hst_rate: 15.000
+  },
+  {
+    name: "Quebec",
+    abbreviation: "QC",
+    gst_rate: 5.000,
+    pst_rate: 9.975,
+    hst_rate: 0.000
+  },
+  {
+    name: "Saskatchewan",
+    abbreviation: "SK",
+    gst_rate: 5.000,
+    pst_rate: 6.000,
+    hst_rate: 0.000
+  },
+  {
+    name: "Yukon",
+    abbreviation: "YT",
+    gst_rate: 5.000,
+    pst_rate: 0.000,
+    hst_rate: 0.000
+  }
 ]
 
 province_list.each do |province_data|
@@ -34,6 +112,9 @@ province_list.each do |province_data|
   )
 
   province.name = province_data[:name]
+  province.gst_rate = province_data[:gst_rate]
+  province.pst_rate = province_data[:pst_rate]
+  province.hst_rate = province_data[:hst_rate]
   province.save!
 end
 

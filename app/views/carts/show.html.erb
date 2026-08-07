@@ -117,6 +117,10 @@
       <%= link_to "Continue Shopping",
                   root_path(anchor: "products"),
                   class: "cart-continue-button" %>
+
+      <%= link_to "Checkout",
+                  checkout_path,
+                  class: "cart-checkout-button" %>
     </div>
   <% else %>
     <div class="empty-cart">

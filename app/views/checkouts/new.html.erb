@@ -1,0 +1,285 @@
+<% content_for :title, "Checkout" %>
+
+<section class="checkout-page">
+  <% if alert.present? %>
+    <div class="checkout-alert">
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <div class="checkout-layout">
+    <div class="checkout-details">
+      <div class="checkout-brand">
+        <%= link_to "SUPEREX", root_path %>
+      </div>
+
+      <div class="checkout-section">
+        <div class="checkout-section-heading">
+          <span>1</span>
+
+          <div>
+            <h1>Contact</h1>
+            <p>Order confirmation contact method</p>
+          </div>
+        </div>
+
+        <div class="checkout-contact-box">
+          <div>
+            <span>Email</span>
+            <strong><%= current_customer.email %></strong>
+          </div>
+
+          <%= link_to "Edit account",
+                      edit_customer_registration_path %>
+        </div>
+      </div>
+
+      <div class="checkout-section">
+        <div class="checkout-section-heading">
+          <span>2</span>
+
+          <div>
+            <h2>Shipping Address</h2>
+            <p>Shipping is only available in Canada.</p>
+          </div>
+        </div>
+
+        <%= form_with url: checkout_path,
+                      method: :get,
+                      local: true,
+                      class: "checkout-address-form" do %>
+          <div class="checkout-field-grid">
+            <div class="checkout-field">
+              <%= label_tag :first_name, "First name" %>
+
+              <%= text_field_tag :first_name,
+                                 @first_name,
+                                 required: true,
+                                 autocomplete: "given-name" %>
+            </div>
+
+            <div class="checkout-field">
+              <%= label_tag :last_name, "Last name" %>
+
+              <%= text_field_tag :last_name,
+                                 @last_name,
+                                 required: true,
+                                 autocomplete: "family-name" %>
+            </div>
+          </div>
+
+          <div class="checkout-field">
+            <%= label_tag :street_address, "Street address" %>
+
+            <%= text_field_tag :street_address,
+                               @street_address,
+                               autocomplete: "street-address" %>
+          </div>
+
+          <div class="checkout-field-grid">
+            <div class="checkout-field">
+              <%= label_tag :city, "City" %>
+
+              <%= text_field_tag :city,
+                                 @city,
+                                 autocomplete: "address-level2" %>
+            </div>
+
+            <div class="checkout-field">
+              <%= label_tag :postal_code, "Postal code" %>
+
+              <%= text_field_tag :postal_code,
+                                 @postal_code,
+                                 autocomplete: "postal-code" %>
+            </div>
+          </div>
+
+          <div class="checkout-field">
+            <%= label_tag :province_id,
+                          "Province or Territory" %>
+
+            <select name="province_id"
+                    id="province_id"
+                    required
+                    onchange="this.form.requestSubmit()">
+              <option value="">
+                Select a province or territory
+              </option>
+
+              <% @provinces.each do |province| %>
+                <% if @selected_province.present? &&
+                      @selected_province.id == province.id %>
+                  <option value="<%= province.id %>" selected>
+                    <%= province.name %>
+                  </option>
+                <% else %>
+                  <option value="<%= province.id %>">
+                    <%= province.name %>
+                  </option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="checkout-form-actions">
+            <%= submit_tag "Save Address and Update Invoice",
+                           class: "checkout-update-button" %>
+
+            <%= link_to "Return to Cart",
+                        cart_path,
+                        class: "checkout-return-link" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <aside class="checkout-invoice">
+      <div class="checkout-invoice-heading">
+        <div>
+          <p>Order Summary</p>
+          <h2>Your Invoice</h2>
+        </div>
+
+        <%= link_to "Edit Cart", cart_path %>
+      </div>
+
+      <div class="checkout-invoice-items">
+        <% @cart_items.each do |cart_item| %>
+          <% product = cart_item[:product] %>
+          <% quantity = cart_item[:quantity] %>
+          <% unit_price = cart_item[:unit_price] %>
+          <% line_total = cart_item[:line_total] %>
+
+          <article class="checkout-invoice-item">
+            <div class="checkout-invoice-image-wrap">
+              <div class="checkout-invoice-image">
+                <% if product.image.attached? %>
+                  <%= image_tag product.image,
+                                alt: product.name %>
+                <% else %>
+                  <div class="checkout-invoice-missing-image">
+                    <span>Image coming soon</span>
+                  </div>
+                <% end %>
+              </div>
+
+              <span class="checkout-invoice-quantity">
+                <%= quantity %>
+              </span>
+            </div>
+
+            <div class="checkout-invoice-product">
+              <h3><%= product.name %></h3>
+
+              <p>
+                <%= product.categories.map(&:name).join(", ") %>
+              </p>
+
+              <span>
+                <%= number_to_currency(unit_price) %> each
+              </span>
+            </div>
+
+            <strong>
+              <%= number_to_currency(line_total) %>
+            </strong>
+          </article>
+        <% end %>
+      </div>
+
+      <div class="checkout-invoice-totals">
+        <div>
+          <span>Subtotal</span>
+          <strong><%= number_to_currency(@subtotal) %></strong>
+        </div>
+
+        <% if @selected_province.blank? %>
+          <div class="checkout-province-message">
+            Select a province to calculate taxes.
+          </div>
+        <% else %>
+          <% if @gst_amount > 0 %>
+            <div>
+              <span>
+                GST (<%= @selected_province.gst_rate %>%)
+              </span>
+
+              <strong>
+                <%= number_to_currency(@gst_amount) %>
+              </strong>
+            </div>
+          <% end %>
+
+          <% if @pst_amount > 0 %>
+            <div>
+              <span>
+                <% if @selected_province.abbreviation == "QC" %>
+                  QST
+                <% elsif @selected_province.abbreviation == "MB" %>
+                  RST
+                <% else %>
+                  PST
+                <% end %>
+
+                (<%= @selected_province.pst_rate %>%)
+              </span>
+
+              <strong>
+                <%= number_to_currency(@pst_amount) %>
+              </strong>
+            </div>
+          <% end %>
+
+          <% if @hst_amount > 0 %>
+            <div>
+              <span>
+                HST (<%= @selected_province.hst_rate %>%)
+              </span>
+
+              <strong>
+                <%= number_to_currency(@hst_amount) %>
+              </strong>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="checkout-invoice-grand-total">
+        <div>
+          <span>Total</span>
+          <small>CAD</small>
+        </div>
+
+        <strong>
+          <%= number_to_currency(@grand_total) %>
+        </strong>
+      </div>
+
+      <% if @selected_province.present? %>
+        <%= form_with url: place_order_path,
+                      method: :post,
+                      local: true,
+                      class: "checkout-place-order-form" do %>
+          <%= hidden_field_tag :first_name, @first_name %>
+          <%= hidden_field_tag :last_name, @last_name %>
+
+          <%= hidden_field_tag :street_address,
+                               @street_address %>
+
+          <%= hidden_field_tag :city, @city %>
+          <%= hidden_field_tag :postal_code, @postal_code %>
+
+          <%= hidden_field_tag :province_id,
+                               @selected_province.id %>
+
+          <%= submit_tag "Place Order",
+                         class: "checkout-place-order-button" %>
+        <% end %>
+      <% end %>
+
+      <p class="checkout-invoice-note">
+        Payment processing will be completed on the next page.
+      </p>
+    </aside>
+  </div>
+</section>

@@ -1,3 +1,125 @@
 <footer class="site-footer">
-  <%= link_to "Admin Sign-In", "/admin", class: "admin-button" %>
+  <div class="footer-main">
+    <div class="footer-column">
+      <h3>Shop</h3>
+
+      <ul>
+        <li>
+          <%= link_to "Shop All",
+                      root_path(anchor: "products"),
+                      class: "footer-link" %>
+        </li>
+
+        <li>
+          <%= link_to "Shell Jackets",
+                      shell_jackets_path,
+                      class: "footer-link" %>
+        </li>
+
+        <li>
+          <%= link_to "Insulated Jackets",
+                      insulated_jackets_path,
+                      class: "footer-link" %>
+        </li>
+
+        <li>
+          <%= link_to "Lifestyle",
+                      lifestyle_path,
+                      class: "footer-link" %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>About Us</h3>
+
+      <ul>
+        <li>
+          <%= link_to "Who We Are",
+                      about_path,
+                      class: "footer-link" %>
+        </li>
+
+        <li>
+          <%= link_to "Contact Us",
+                      contact_path,
+                      class: "footer-link" %>
+        </li>
+
+        <li>
+          <%= link_to "Winnipeg, Manitoba",
+                      contact_path,
+                      class: "footer-link" %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Customer</h3>
+
+      <ul>
+        <li>
+          <% if customer_signed_in? %>
+            <%= link_to "My Account",
+                        edit_customer_registration_path,
+                        class: "footer-link" %>
+          <% else %>
+            <%= link_to "Sign In",
+                        new_customer_session_path,
+                        class: "footer-link" %>
+          <% end %>
+        </li>
+
+        <li>
+          <%= link_to "Shopping Cart",
+                      cart_path,
+                      class: "footer-link" %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h3>Contact Us</h3>
+
+      <% if @footer_contact.present? %>
+        <div class="footer-contact">
+          <p><%= @footer_contact.address %></p>
+
+          <p>
+            <%= mail_to @footer_contact.email,
+                        @footer_contact.email,
+                        class: "footer-link" %>
+          </p>
+
+          <p><%= @footer_contact.phone %></p>
+          <p><%= @footer_contact.business_hours %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-description">
+      <h3>About SUPEREX</h3>
+
+      <p>
+        SUPEREX is a Winnipeg-founded outdoor lifestyle clothing company.
+        We focus on simple outerwear and everyday pieces for changing
+        Canadian weather, from shell jackets to insulated layers and
+        casual clothing.
+      </p>
+    </div>
+
+    <div class="footer-brand-area">
+      <%= link_to "SUPEREX",
+                  root_path,
+                  class: "footer-brand" %>
+
+      <p>© 2026 SUPEREX. All rights reserved.</p>
+
+      <%= link_to "Admin Sign-In",
+                  "/admin",
+                  class: "footer-admin-link" %>
+    </div>
+  </div>
 </footer>

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   before_action :allow_customer_information, if: :devise_controller?
+  before_action :load_footer_information
 
   protected
 
@@ -24,5 +25,9 @@ class ApplicationController < ActionController::Base
         :province_id
       ]
     )
+  end
+
+  def load_footer_information
+    @footer_contact = ContactPage.first
   end
 end

@@ -1,24 +1,45 @@
-# README
+# SUPEREX Ecommerce Store
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Build in Localhost
 
-Things you may want to cover:
+### 1. Clone
 
-* Ruby version
+Clone the repository:
 
-* System dependencies
+```bash
+git clone https://github.com/marcisip35/Ecommerce-Project---RRC.git
+```
 
-* Configuration
+Move into the project folder:
 
-* Database creation
+```bash
+cd Ecommerce-Project---RRC
+```
 
-* Database initialization
+### 2. Build with Docker
 
-* How to run the test suite
+Build and run the Docker container:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+docker compose up -d --build
+```
 
-* Deployment instructions
+Open:
 
-* ...
+```text
+http://localhost:3000
+```
+
+or:
+
+```text
+http://127.0.0.1:3000
+```
+
+### 3. Stop Docker
+
+To stop the Docker container:
+
+```bash
+docker compose down
+```

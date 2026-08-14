@@ -11,6 +11,7 @@ end
 shell_jackets = Category.find_or_create_by!(name: "Shell Jackets")
 insulated_jackets = Category.find_or_create_by!(name: "Insulated Jackets")
 lifestyle = Category.find_or_create_by!(name: "Lifestyle")
+accessories = Category.find_or_create_by!(name: "Accessories")
 
 province_list = [
   {
@@ -198,7 +199,7 @@ products = [
     stock_quantity: 16,
     on_sale:        false,
     sale_price:     nil,
-    categories:     [lifestyle]
+    categories:     [lifestyle, accessories]
   },
   {
     name:           "Fundy Trail Cap",

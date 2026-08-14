@@ -1,3 +1,4 @@
+/* Root */
 :root {
   --black: #000000;
   --off-white: #faf9f6;
@@ -22,6 +23,7 @@ body {
   color: var(--black);
 }
 
+/* Header */
 .site-header {
   min-height: 100px;
   position: relative;
@@ -154,6 +156,7 @@ body {
   display: block;
 }
 
+/* Search */
 .search-page {
   min-height: 500px;
   padding: 80px 40px;
@@ -240,6 +243,7 @@ body {
   color: var(--purple);
 }
 
+/* Hero */
 .hero {
   min-height: 900px;
   padding: 60px 40px;
@@ -305,6 +309,7 @@ body {
   background: var(--purple);
 }
 
+/* Products */
 .product-section {
   padding: 90px 40px 110px;
   background: var(--off-white);
@@ -520,6 +525,7 @@ body {
   text-decoration: line-through;
 }
 
+/* Product Details */
 .product-details {
   min-height: 700px;
   padding: 70px 40px 100px;
@@ -639,6 +645,7 @@ body {
   display: block;
 }
 
+/* Footer */
 .site-footer {
   min-height: 600px;
   padding: 40px;
@@ -680,6 +687,7 @@ body {
   font-weight: 600;
 }
 
+/* About */
 .about-page {
   min-height: 700px;
 
@@ -743,6 +751,7 @@ body {
   justify-content: center;
 }
 
+/* Contact */
 .contact-page {
   padding: 80px 40px 100px;
 }
@@ -1304,7 +1313,7 @@ body {
   color: var(--purple);
 }
 
-/* Pagination alignment */
+/* Pagination */
 
 .pagination-wrapper {
   max-width: 1400px;
@@ -1411,7 +1420,7 @@ body {
   }
 }
 
-/* Customer signup and login */
+/* Customer Login */
 
 .customer-auth-page {
   min-height: 700px;
@@ -1605,7 +1614,7 @@ body {
   text-decoration: underline;
 }
 
-/* Customer information in the header */
+/* Customer Header */
 
 .customer-header-username {
   max-width: 110px;
@@ -1658,6 +1667,7 @@ body {
   }
 }
 
+/* Customer Account */
 .customer-account-page {
   min-height: 800px;
   padding: 80px 20px;
@@ -1788,6 +1798,7 @@ body {
   }
 }
 
+/* Shopping Cart */
 .cart-header-link {
   position: relative;
 }
@@ -2254,36 +2265,39 @@ body {
   }
 }
 
+/* Checkout */
 .checkout-page {
   min-height: 800px;
-  padding: 60px 40px 100px;
-  background: #f3f3f1;
+  padding: 55px 40px 100px;
+  background: white;
 }
 
 .checkout-layout {
   width: 100%;
-  max-width: 1320px;
+  max-width: 1500px;
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(380px, 0.9fr);
+  grid-template-columns: minmax(0, 2fr) minmax(380px, 0.85fr);
   align-items: start;
-  gap: 40px;
+  gap: 0;
 }
 
 .checkout-details {
-  padding: 42px;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  padding: 0 50px 0 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .checkout-brand {
-  margin-bottom: 45px;
+  margin-bottom: 42px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #cccccc;
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 20px;
 }
 
@@ -2295,15 +2309,17 @@ body {
   text-decoration: none;
 }
 
-.checkout-brand span {
-  color: #777777;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+.checkout-section {
+  padding-bottom: 40px;
+  border-bottom: 1px solid #cccccc;
 }
 
 .checkout-section + .checkout-section {
-  margin-top: 45px;
+  margin-top: 28px;
+}
+
+.checkout-section:last-child {
+  border-bottom: 0;
 }
 
 .checkout-section-heading {
@@ -2344,9 +2360,9 @@ body {
 }
 
 .checkout-contact-box {
-  padding: 18px 20px;
-  border-radius: 10px;
-  background: var(--light-grey);
+  padding: 0 0 0 44px;
+  border-radius: 0;
+  background: transparent;
 
   display: flex;
   align-items: center;
@@ -2404,8 +2420,8 @@ body {
   width: 100%;
   min-height: 48px;
   padding: 11px 13px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
+  border: 1px solid #333333;
+  border-radius: 0;
   outline: 0;
   background: white;
   color: var(--black);
@@ -2431,7 +2447,7 @@ body {
   min-height: 48px;
   padding: 12px 24px;
   border: 1px solid var(--black);
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--black);
   color: white;
   font-family: inherit;
@@ -2455,16 +2471,32 @@ body {
   color: var(--black);
 }
 
+.checkout-alert {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto 25px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: var(--purple);
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}
+
 .checkout-invoice {
-  padding: 36px;
+  padding: 0 0 0 38px;
   position: sticky;
   top: 25px;
-  border-radius: 16px;
-  background: var(--light-grey);
+  border-left: 0;
+  border-radius: 0;
+  background: white;
+  box-shadow: none;
 }
 
 .checkout-invoice-heading {
   margin-bottom: 30px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #cccccc;
 
   display: flex;
   align-items: flex-start;
@@ -2499,6 +2531,9 @@ body {
 }
 
 .checkout-invoice-item {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dddddd;
+
   display: grid;
   grid-template-columns: 82px 1fr auto;
   align-items: center;
@@ -2515,9 +2550,9 @@ body {
   width: 82px;
   height: 92px;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 4px;
   background: white;
-  box-shadow: 0 5px 13px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
 }
 
 .checkout-invoice-image img {
@@ -2589,7 +2624,7 @@ body {
 .checkout-invoice-totals {
   margin-top: 30px;
   padding-top: 25px;
-  border-top: 1px solid #cccccc;
+  border-top: 0;
 
   display: flex;
   flex-direction: column;
@@ -2614,7 +2649,7 @@ body {
 
 .checkout-province-message {
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 0;
   background: white;
   color: #666666;
   font-size: 12px;
@@ -2654,83 +2689,6 @@ body {
   font-weight: 600;
 }
 
-.checkout-invoice-note {
-  margin: 25px 0 0;
-  color: #777777;
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-@media (max-width: 950px) {
-  .checkout-page {
-    padding: 40px 20px 70px;
-  }
-
-  .checkout-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .checkout-invoice {
-    position: static;
-  }
-}
-
-@media (max-width: 600px) {
-  .checkout-details,
-  .checkout-invoice {
-    padding: 25px 20px;
-  }
-
-  .checkout-brand {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .checkout-field-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .checkout-form-actions {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .checkout-update-button {
-    width: 100%;
-  }
-
-  .checkout-return-link {
-    text-align: center;
-  }
-
-  .checkout-invoice-item {
-    grid-template-columns: 70px 1fr;
-  }
-
-  .checkout-invoice-image-wrap,
-  .checkout-invoice-image {
-    width: 70px;
-    height: 80px;
-  }
-
-  .checkout-invoice-item > strong {
-    grid-column: 2;
-  }
-}
-
-
-.checkout-alert {
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto 25px;
-  padding: 14px 18px;
-  border-radius: 10px;
-  background: var(--purple);
-  color: white;
-  font-size: 14px;
-  text-align: center;
-}
-
 .checkout-place-order-form {
   margin-top: 28px;
 }
@@ -2740,7 +2698,7 @@ body {
   min-height: 52px;
   padding: 13px 24px;
   border: 1px solid var(--black);
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--black);
   color: white;
   font-family: inherit;
@@ -2754,22 +2712,33 @@ body {
   background: var(--purple);
 }
 
+.checkout-invoice-note {
+  margin: 25px 0 0;
+  color: #777777;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* Order Confirmation */
 .order-confirmation-page {
   min-height: 800px;
-  padding: 70px 40px 100px;
-  background: var(--purple);
+  padding: 55px 40px 100px;
+  background: white;
 }
 
 .order-confirmation-container {
   width: 100%;
-  max-width: 1250px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
 .order-confirmation-heading {
-  margin-bottom: 35px;
-  color: white;
-  text-align: center;
+  max-width: 1500px;
+  margin: 0 auto 42px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #cccccc;
+  color: var(--black);
+  text-align: left;
 }
 
 .order-confirmation-heading p {
@@ -2782,7 +2751,7 @@ body {
 
 .order-confirmation-heading h1 {
   margin: 0 0 12px;
-  font-size: 40px;
+  font-size: 36px;
   font-weight: 600;
 }
 
@@ -2792,24 +2761,33 @@ body {
 
 .order-confirmation-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(350px, 0.8fr);
+  grid-template-columns: minmax(0, 2fr) minmax(350px, 0.85fr);
   align-items: start;
-  gap: 35px;
+  gap: 0;
 }
 
 .order-confirmation-main,
 .order-confirmation-invoice {
-  border-radius: 16px;
-  background: var(--off-white);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .order-confirmation-main {
-  padding: 38px;
+  padding: 0 50px 0 0;
+  background: transparent;
+}
+
+.order-confirmation-section {
+  padding-bottom: 38px;
+  border-bottom: 1px solid #cccccc;
 }
 
 .order-confirmation-section + .order-confirmation-section {
-  margin-top: 40px;
+  margin-top: 30px;
+}
+
+.order-confirmation-section:last-child {
+  border-bottom: 0;
 }
 
 .order-confirmation-section-heading {
@@ -2833,9 +2811,9 @@ body {
 }
 
 .order-address {
-  padding: 20px;
-  border-radius: 10px;
-  background: var(--light-grey);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
 
   display: flex;
   flex-direction: column;
@@ -2859,6 +2837,9 @@ body {
 }
 
 .order-confirmation-item {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dddddd;
+
   display: grid;
   grid-template-columns: 90px 1fr auto;
   align-items: center;
@@ -2875,9 +2856,9 @@ body {
   width: 90px;
   height: 105px;
   overflow: hidden;
-  border-radius: 13px;
+  border-radius: 4px;
   background: var(--light-grey);
-  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
 }
 
 .order-confirmation-image img {
@@ -2947,13 +2928,17 @@ body {
 }
 
 .order-confirmation-invoice {
-  padding: 35px;
+  padding: 0 0 0 38px;
   position: sticky;
   top: 25px;
+  border-left: 0;
+  background: white;
 }
 
 .order-confirmation-invoice-heading {
   margin-bottom: 27px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #cccccc;
 }
 
 .order-confirmation-invoice-heading p {
@@ -2971,9 +2956,9 @@ body {
 }
 
 .order-confirmation-details {
-  padding: 18px;
-  border-radius: 10px;
-  background: var(--light-grey);
+  padding: 18px 0;
+  border-radius: 0;
+  background: transparent;
 
   display: flex;
   flex-direction: column;
@@ -3058,13 +3043,15 @@ body {
   width: 100%;
   padding: 15px 25px;
   border: 1px solid var(--black);
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--black);
   color: white;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
   display: block;
 }
 
@@ -3073,28 +3060,95 @@ body {
   background: var(--purple);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
+  .checkout-page,
   .order-confirmation-page {
-    padding: 55px 20px 75px;
+    padding: 40px 20px 70px;
+    background: white;
   }
 
-  .order-confirmation-layout {
+  .checkout-layout {
     grid-template-columns: 1fr;
   }
 
+  .checkout-details,
+  .order-confirmation-main {
+    padding-right: 0;
+  }
+
+  .checkout-invoice,
   .order-confirmation-invoice {
+    margin-top: 35px;
     position: static;
+    border-top: 1px solid #cccccc;
+    border-left: 0;
+    background: white;
+  }
+
+  .checkout-invoice,
+  .order-confirmation-invoice {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .order-confirmation-layout {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 600px) {
-  .order-confirmation-heading h1 {
-    font-size: 32px;
+  .checkout-details,
+  .order-confirmation-main {
+    padding: 25px 0 25px 20px;
   }
 
-  .order-confirmation-main,
-  .order-confirmation-invoice {
-    padding: 25px 20px;
+  .checkout-brand {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .checkout-contact-box {
+    padding-left: 0;
+  }
+
+  .checkout-field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-form-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .checkout-update-button {
+    width: 100%;
+  }
+
+  .checkout-return-link {
+    text-align: center;
+  }
+
+  .checkout-invoice-item {
+    grid-template-columns: 70px 1fr;
+  }
+
+  .checkout-invoice-image-wrap,
+  .checkout-invoice-image {
+    width: 70px;
+    height: 80px;
+  }
+
+  .checkout-invoice-item > strong {
+    grid-column: 2;
+  }
+
+  .order-confirmation-heading {
+    text-align: center;
+  }
+
+  .order-confirmation-heading h1 {
+    font-size: 32px;
   }
 
   .order-confirmation-item {
@@ -3110,238 +3164,4 @@ body {
   .order-confirmation-item > strong {
     grid-column: 2;
   }
-}
-
-.checkout-page {
-  padding: 55px 40px 100px;
-  background: white;
-}
-
-.checkout-layout {
-  max-width: 1500px;
-  grid-template-columns: minmax(0, 2fr) minmax(380px, 0.85fr);
-  gap: 0;
-}
-
-.checkout-details {
-  padding: 0 50px 0 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.checkout-brand {
-  margin-bottom: 42px;
-  padding-bottom: 22px;
-  border-bottom: 1px solid #cccccc;
-}
-
-.checkout-section {
-  padding-bottom: 40px;
-  border-bottom: 1px solid #cccccc;
-}
-
-.checkout-section + .checkout-section {
-  margin-top: 28px;
-}
-
-.checkout-section:last-child {
-  border-bottom: 0;
-}
-
-.checkout-contact-box {
-  padding: 0 0 0 44px;
-  border-radius: 0;
-  background: transparent;
-}
-
-.checkout-field input,
-.checkout-field select {
-  border-color: #333333;
-  border-radius: 0;
-}
-
-.checkout-update-button {
-  border-radius: 0;
-}
-
-.checkout-invoice {
-  padding: 0 0 0 38px;
-  position: sticky;
-  top: 25px;
-  border-left: 0;
-  border-radius: 0;
-  background: white;
-  box-shadow: none;
-}
-
-.checkout-invoice-heading {
-  padding-bottom: 18px;
-  border-bottom: 1px solid #cccccc;
-}
-
-.checkout-invoice-item {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #dddddd;
-}
-
-.checkout-invoice-image {
-  border-radius: 4px;
-  box-shadow: none;
-}
-
-.checkout-invoice-totals {
-  border-top: 0;
-}
-
-.checkout-province-message {
-  border-radius: 0;
-}
-
-.checkout-place-order-button {
-  border-radius: 0;
-}
-
-.order-confirmation-page {
-  padding: 55px 40px 100px;
-  background: white;
-}
-
-.order-confirmation-container {
-  max-width: 1500px;
-}
-
-.order-confirmation-heading {
-  max-width: 1500px;
-  margin: 0 auto 42px;
-  padding-bottom: 22px;
-  border-bottom: 1px solid #cccccc;
-  color: var(--black);
-  text-align: left;
-}
-
-.order-confirmation-heading h1 {
-  font-size: 36px;
-}
-
-.order-confirmation-layout {
-  grid-template-columns: minmax(0, 2fr) minmax(350px, 0.85fr);
-  gap: 0;
-}
-
-.order-confirmation-main,
-.order-confirmation-invoice {
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.order-confirmation-main {
-  padding: 0 50px 0 0;
-}
-
-.order-confirmation-section {
-  padding-bottom: 38px;
-  border-bottom: 1px solid #cccccc;
-}
-
-.order-confirmation-section + .order-confirmation-section {
-  margin-top: 30px;
-}
-
-.order-confirmation-section:last-child {
-  border-bottom: 0;
-}
-
-.order-address {
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
-}
-
-.order-confirmation-item {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #dddddd;
-}
-
-.order-confirmation-image {
-  border-radius: 4px;
-  box-shadow: none;
-}
-
-.order-confirmation-invoice {
-  padding: 0 0 0 38px;
-  position: sticky;
-  top: 25px;
-  border-left: 1px solid #cccccc;
-}
-
-.order-confirmation-invoice-heading {
-  padding-bottom: 18px;
-  border-bottom: 1px solid #cccccc;
-}
-
-.order-confirmation-details {
-  padding: 18px 0;
-  border-radius: 0;
-  background: transparent;
-}
-
-.order-confirmation-button {
-  border-radius: 0;
-}
-
-@media (max-width: 950px) {
-  .checkout-page,
-  .order-confirmation-page {
-    padding: 40px 20px 70px;
-    background: white;
-  }
-
-  .checkout-details,
-  .order-confirmation-main {
-    padding-right: 0;
-  }
-
-  .checkout-invoice,
-  .order-confirmation-invoice {
-    margin-top: 35px;
-    padding: 30px 0 0;
-    position: static;
-    border-top: 1px solid #cccccc;
-    border-left: 0;
-    background: white;
-  }
-
-  .checkout-invoice {
-    padding: 30px 20px;
-  }
-
-  .order-confirmation-invoice {
-    padding: 30px 20px;
-  }
-}
-
-@media (max-width: 600px) {
-  .checkout-contact-box {
-    padding-left: 0;
-  }
-
-  .order-confirmation-heading {
-    text-align: center;
-  }
-}
-
-.checkout-brand {
-  justify-content: flex-start;
-}
-
-.order-confirmation-invoice {
-  border-left: 0;
-  background: white;
-}
-
-.order-confirmation-button {
-  font-family: inherit;
-  cursor: pointer;
 }

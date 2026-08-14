@@ -1,4 +1,3 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
 
@@ -11,7 +10,6 @@ document.addEventListener("turbo:load", function() {
     return
   }
 
-  /* Check which navbar style the page should be using */
   function checkHeader() {
     if (window.scrollY > hero.offsetHeight - 100) {
       header.classList.add("is-sticky")
@@ -22,4 +20,26 @@ document.addEventListener("turbo:load", function() {
 
   window.addEventListener("scroll", checkHeader)
   checkHeader()
+})
+
+/* Header Menu */
+document.addEventListener("turbo:load", function() {
+  const header = document.querySelector(".site-header")
+  const menuButton = document.querySelector(".header-menu-button")
+
+  if (!header || !menuButton) {
+    return
+  }
+
+  menuButton.addEventListener("click", function() {
+    header.classList.toggle("header-menu-open")
+
+    if (header.classList.contains("header-menu-open")) {
+      menuButton.setAttribute("aria-expanded", "true")
+      menuButton.setAttribute("aria-label", "Close navigation")
+    } else {
+      menuButton.setAttribute("aria-expanded", "false")
+      menuButton.setAttribute("aria-label", "Open navigation")
+    }
+  })
 })

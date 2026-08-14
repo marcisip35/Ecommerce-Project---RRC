@@ -7,9 +7,19 @@
   <div class="header-main">
     <div class="header-brand">
       <%= link_to "SUPEREX", root_path, class: "brand" %>
+
+      <button type="button"
+              class="header-menu-button"
+              aria-expanded="false"
+              aria-controls="header-navigation"
+              aria-label="Open navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
 
-    <nav class="header-nav">
+    <nav class="header-nav" id="header-navigation">
       <%= link_to "Shop All",
                   root_path(anchor: "products"),
                   class: "nav-link" %>

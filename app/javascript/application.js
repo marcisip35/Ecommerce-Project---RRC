@@ -23,23 +23,24 @@ document.addEventListener("turbo:load", function() {
 })
 
 /* Header Menu */
-document.addEventListener("turbo:load", function() {
-  const header = document.querySelector(".site-header")
-  const menuButton = document.querySelector(".header-menu-button")
+document.addEventListener("click", function(event) {
+  const menuButton = event.target.closest(".header-menu-button")
 
-  if (!header || !menuButton) {
+  if (!menuButton) {
     return
   }
 
-  menuButton.addEventListener("click", function() {
-    header.classList.toggle("header-menu-open")
+  const header = document.querySelector(".site-header")
 
-    if (header.classList.contains("header-menu-open")) {
-      menuButton.setAttribute("aria-expanded", "true")
-      menuButton.setAttribute("aria-label", "Close navigation")
-    } else {
-      menuButton.setAttribute("aria-expanded", "false")
-      menuButton.setAttribute("aria-label", "Open navigation")
-    }
-  })
+  if (!header) {
+    return
+  }
+
+  header.classList.toggle("header-menu-open")
+
+  if (header.classList.contains("header-menu-open")) {
+    menuButton.setAttribute("aria-expanded", "true")
+  } else {
+    menuButton.setAttribute("aria-expanded", "false")
+  }
 })

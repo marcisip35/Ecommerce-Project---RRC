@@ -3,28 +3,26 @@ class CartsController < ApplicationController
     @cart_items = []
     @subtotal = 0
 
-    if session[:cart].present?
-      session[:cart].each do |product_id, quantity|
-        product = Product.find_by(id: product_id)
+    return unless session[:cart].present?
 
-        if product.present?
-          unit_price = product.price
+    session[:cart].each do |product_id, quantity|
+      product = Product.find_by(id: product_id)
 
-          if product.on_sale && product.sale_price.present?
-            unit_price = product.sale_price
-          end
+      next unless product.present?
 
-          line_total = unit_price * quantity.to_i
-          @subtotal += line_total
+      unit_price = product.price
 
-          @cart_items << {
-            product: product,
-            quantity: quantity.to_i,
-            unit_price: unit_price,
-            line_total: line_total
-          }
-        end
-      end
+      unit_price = product.sale_price if product.on_sale && product.sale_price.present?
+
+      line_total = unit_price * quantity.to_i
+      @subtotal += line_total
+
+      @cart_items << {
+        product:    product,
+        quantity:   quantity.to_i,
+        unit_price: unit_price,
+        line_total: line_total
+      }
     end
   end
 
@@ -36,9 +34,7 @@ class CartsController < ApplicationController
     if cart[product_id].present?
       current_quantity = cart[product_id].to_i
 
-      if current_quantity < product.stock_quantity
-        cart[product_id] = current_quantity + 1
-      end
+      cart[product_id] = current_quantity + 1 if current_quantity < product.stock_quantity
     else
       cart[product_id] = 1
     end
@@ -55,13 +51,9 @@ class CartsController < ApplicationController
     product_id = product.id.to_s
     quantity = params[:quantity].to_i
 
-    if quantity < 1
-      quantity = 1
-    end
+    quantity = 1 if quantity < 1
 
-    if quantity > product.stock_quantity
-      quantity = product.stock_quantity
-    end
+    quantity = product.stock_quantity if quantity > product.stock_quantity
 
     cart[product_id] = quantity
     session[:cart] = cart

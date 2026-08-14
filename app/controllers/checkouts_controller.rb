@@ -9,34 +9,30 @@ class CheckoutsController < ApplicationController
     cart.each do |product_id, quantity|
       product = Product.find_by(id: product_id)
 
-      if product.present? && product.stock_quantity > 0
-        quantity = quantity.to_i
+      next unless product.present? && product.stock_quantity > 0
 
-        if quantity < 1
-          quantity = 1
-        end
+      quantity = quantity.to_i
 
-        if quantity > product.stock_quantity
-          quantity = product.stock_quantity
-          cart[product_id] = quantity
-        end
+      quantity = 1 if quantity < 1
 
-        unit_price = product.price
-
-        if product.on_sale && product.sale_price.present?
-          unit_price = product.sale_price
-        end
-
-        line_total = unit_price * quantity
-        @subtotal += line_total
-
-        @cart_items << {
-          product: product,
-          quantity: quantity,
-          unit_price: unit_price,
-          line_total: line_total
-        }
+      if quantity > product.stock_quantity
+        quantity = product.stock_quantity
+        cart[product_id] = quantity
       end
+
+      unit_price = product.price
+
+      unit_price = product.sale_price if product.on_sale && product.sale_price.present?
+
+      line_total = unit_price * quantity
+      @subtotal += line_total
+
+      @cart_items << {
+        product:    product,
+        quantity:   quantity,
+        unit_price: unit_price,
+        line_total: line_total
+      }
     end
 
     session[:cart] = cart
@@ -49,13 +45,13 @@ class CheckoutsController < ApplicationController
 
     @provinces = Province.order(:name)
 
-    if params[:province_id].present?
-      @selected_province = Province.find_by(
-        id: params[:province_id]
-      )
-    else
-      @selected_province = current_customer.province
-    end
+    @selected_province = if params[:province_id].present?
+                           Province.find_by(
+                             id: params[:province_id]
+                           )
+                         else
+                           current_customer.province
+                         end
 
     @first_name = params[:first_name].presence ||
                   current_customer.first_name
@@ -63,23 +59,23 @@ class CheckoutsController < ApplicationController
     @last_name = params[:last_name].presence ||
                  current_customer.last_name
 
-    if params.key?(:street_address)
-      @street_address = params[:street_address]
-    else
-      @street_address = current_customer.street_address
-    end
+    @street_address = if params.key?(:street_address)
+                        params[:street_address]
+                      else
+                        current_customer.street_address
+                      end
 
-    if params.key?(:city)
-      @city = params[:city]
-    else
-      @city = current_customer.city
-    end
+    @city = if params.key?(:city)
+              params[:city]
+            else
+              current_customer.city
+            end
 
-    if params.key?(:postal_code)
-      @postal_code = params[:postal_code]
-    else
-      @postal_code = current_customer.postal_code
-    end
+    @postal_code = if params.key?(:postal_code)
+                     params[:postal_code]
+                   else
+                     current_customer.postal_code
+                   end
 
     @gst_amount = 0
     @pst_amount = 0
@@ -127,12 +123,12 @@ class CheckoutsController < ApplicationController
        last_name.blank? ||
        province.nil?
       redirect_to checkout_path(
-        first_name: first_name,
-        last_name: last_name,
+        first_name:     first_name,
+        last_name:      last_name,
         street_address: street_address,
-        city: city,
-        postal_code: postal_code,
-        province_id: params[:province_id]
+        city:           city,
+        postal_code:    postal_code,
+        province_id:    params[:province_id]
       ),
                   alert: "Enter your name and select a province or territory."
       return
@@ -159,16 +155,14 @@ class CheckoutsController < ApplicationController
 
       unit_price = product.price
 
-      if product.on_sale && product.sale_price.present?
-        unit_price = product.sale_price
-      end
+      unit_price = product.sale_price if product.on_sale && product.sale_price.present?
 
       line_total = unit_price * quantity
       subtotal += line_total
 
       cart_items << {
-        product: product,
-        quantity: quantity,
+        product:    product,
+        quantity:   quantity,
         unit_price: unit_price,
         line_total: line_total
       }
@@ -197,36 +191,36 @@ class CheckoutsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       current_customer.update!(
-        first_name: first_name,
-        last_name: last_name,
+        first_name:     first_name,
+        last_name:      last_name,
         street_address: street_address,
-        city: city,
-        postal_code: postal_code,
-        province: province
+        city:           city,
+        postal_code:    postal_code,
+        province:       province
       )
 
       order = current_customer.orders.create!(
-        province: province,
-        status: "unpaid",
-        first_name: first_name,
-        last_name: last_name,
+        province:       province,
+        status:         "unpaid",
+        first_name:     first_name,
+        last_name:      last_name,
         street_address: street_address,
-        city: city,
-        postal_code: postal_code,
-        subtotal: subtotal,
-        gst_rate: province.gst_rate,
-        pst_rate: province.pst_rate,
-        hst_rate: province.hst_rate,
-        gst_amount: gst_amount,
-        pst_amount: pst_amount,
-        hst_amount: hst_amount,
-        grand_total: grand_total
+        city:           city,
+        postal_code:    postal_code,
+        subtotal:       subtotal,
+        gst_rate:       province.gst_rate,
+        pst_rate:       province.pst_rate,
+        hst_rate:       province.hst_rate,
+        gst_amount:     gst_amount,
+        pst_amount:     pst_amount,
+        hst_amount:     hst_amount,
+        grand_total:    grand_total
       )
 
       cart_items.each do |cart_item|
         order.order_items.create!(
-          product: cart_item[:product],
-          quantity: cart_item[:quantity],
+          product:    cart_item[:product],
+          quantity:   cart_item[:quantity],
           unit_price: cart_item[:unit_price],
           line_total: cart_item[:line_total]
         )
@@ -244,16 +238,16 @@ class CheckoutsController < ApplicationController
     session[:cart] = {}
 
     redirect_to order_confirmation_path(order)
-  rescue ActiveRecord::RecordInvalid => error
-    message = error.record.errors.full_messages.first
+  rescue ActiveRecord::RecordInvalid => e
+    message = e.record.errors.full_messages.first
 
     redirect_to checkout_path(
-      first_name: first_name,
-      last_name: last_name,
+      first_name:     first_name,
+      last_name:      last_name,
       street_address: street_address,
-      city: city,
-      postal_code: postal_code,
-      province_id: params[:province_id]
+      city:           city,
+      postal_code:    postal_code,
+      province_id:    params[:province_id]
     ),
                 alert: message
   end

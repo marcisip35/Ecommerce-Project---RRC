@@ -5,8 +5,8 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
 
   validates :status,
-            presence: true,
-            inclusion: { in: [ "unpaid", "paid", "shipped" ] }
+            presence:  true,
+            inclusion: { in: ["unpaid", "paid", "shipped"] }
 
   validates :first_name,
             :last_name,
